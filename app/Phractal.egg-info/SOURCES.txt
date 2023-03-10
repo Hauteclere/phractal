@@ -1,0 +1,15 @@
+LICENSE
+README.md
+setup.py
+app/Phractal.egg-info/PKG-INFO
+app/Phractal.egg-info/SOURCES.txt
+app/Phractal.egg-info/dependency_links.txt
+app/Phractal.egg-info/requires.txt
+app/Phractal.egg-info/top_level.txt
+app/phractal/__init__.py
+app/phractal/src/__init__.py
+app/phractal/src/phraction.py
+app/phractal/src/validated_cached_property.py
+app/phractal/test/__init__.py
+app/phractal/test/test_cvp.py
+app/phractal/test/test_phraction.py
