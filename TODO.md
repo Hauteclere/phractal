@@ -12,5 +12,7 @@ The following tasks are WIP.
 - [ ] Follow guide for deployment to PyPi
 
 ## Development
-- [ ] Need to find a way to prevent a user from using a banned variable name in a template.
+- [ ] Need to find a way to prevent a user from using a banned variable name in a template (i.e. `template`!)
 - [ ] Need to get ValidatedCachedProperty working with parameterized generics in typehints -> https://lyz-code.github.io/blue-book/coding/python/pydantic_types/#generic-classes-as-types
+- [ ] A method that wraps the output in html boilerplate
+- [ ] HTML boilerplate for printable media
