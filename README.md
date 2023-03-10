@@ -36,7 +36,7 @@ In the simple examples below, Phractal is barely more efficient than basic Jinja
 
 ### `Phractal.Phraction`
 The base unit of construction of a Phractal document - analagous to `React.Component`.
-- Renders a supplied template as an HTML string, automatically inserting field values.
+- Renders a supplied template as an HTML string, automatically inserting its field values into the template where they are referenced.
 - Performs Pydantic-based field validation/type-checking. 
 
 #### Args:
@@ -77,12 +77,13 @@ Output:
 
 ### `Phractal.ValidatedCachedProperty`
 
-A decorator which turns a method on a class into a property which is cached and validated at time of first access. **Note that this can be used to nest Phractions!**
+A decorator that turns a method on a class into a property which is cached and validated at time of first access, and inserted into the template where its name is referenced. **Note that this can be used to nest Phractions!**
     
 - Validation is based on return type hints (type hints are compulsory).
 - Does not currently support parameterised generics (ex: `list[int]` is not a valid type hint; use `list` instead) -> *This is an open issue!*
 - Value is calculated and cached at first access.
 - `Phractal.ValidatedCachedProperty` is subclassed from the inbuilt `functools.cached_property`.
+- To avoid caching and validation, use the built-in `@property` decorator.
 
 #### Example 1:
 
@@ -279,10 +280,10 @@ class AcademicPerformance(Phraction):
 
 # Data to feed to the instance
 grades = [
-        ("English", 82), 
-        ("Art", 64), 
-        ("History", 79)
-    ]
+    ("English", 82), 
+    ("Art", 64), 
+    ("History", 79)
+]
 
 # Creating the instance
 academic_performance = AcademicPerformance(grades=grades)
