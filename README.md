@@ -2,7 +2,7 @@
 
 Phractal is a tool for creating documents programmatically with Python, powered by [`Pydantic`](https://docs.pydantic.dev/) and [`Jinja2`](https://jinja.palletsprojects.com/en/3.1.x/). 
 
-Phractal solves the complexity that can arise when templating documents in Python by using *nesting*. Hence the name; a Phractal document is a fractal arrangement of simple components nested inside one another. Phractal is inspired by `React.js`'s component-driven development style, with the additional utility of Pydantic-enforced type-checking before the page is rendered, making debugging a breeze!
+Phractal solves the complexity that can arise when templating complex documents in Python by using *nesting*. Hence the name; a Phractal document is a fractal arrangement of simple components nested inside one another. Phractal is inspired by `React.js`'s component-driven development style, with the additional utility of Pydantic-enforced type-checking before the page is rendered, making debugging a breeze!
 
 In addition to building your own pages from the ground up, any package that produces HTML output can be integrated into your Phractal documents. For example, Plotly graphs can be inserted into your components with just a few lines of code.
 
