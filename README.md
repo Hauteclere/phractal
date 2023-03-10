@@ -10,11 +10,11 @@ Phractal was originally designed to automatically generate bespoke templated sta
 
 - [Phractal](#phractal)
   - [Key Features](#key-features)
-    - [`Phractal.Phraction`](#phractalphraction)
+    - [`phractal.Phraction`](#phractalphraction)
       - [Args:](#args)
       - [Methods:](#methods)
       - [Example:](#example)
-    - [`Phractal.ValidatedCachedProperty`](#phractalvalidatedcachedproperty)
+    - [`phractal.ValidatedCachedProperty`](#phractalvalidatedcachedproperty)
       - [Example 1:](#example-1)
       - [Example 2 (nesting):](#example-2-nesting)
   - [Incorporating Other Packages](#incorporating-other-packages)
@@ -27,14 +27,14 @@ Phractal was originally designed to automatically generate bespoke templated sta
 
 There are two main tools that Practal makes available for document building:
 
-[`Phractal.Phraction`](#phractalphraction)
+[`phractal.Phraction`](#phractalphraction)
 
-[`Phractal.ValidatedCachedProperty`](#phractalvalidatedcachedproperty)
+[`phractal.ValidatedCachedProperty`](#phractalvalidatedcachedproperty)
 
 In the simple examples below, Phractal is barely more efficient than basic Jinja templating. The more complex your documents become, the more Phractal can help.
 
 
-### `Phractal.Phraction`
+### `phractal.Phraction`
 The base unit of construction of a Phractal document - analagous to `React.Component`.
 - Renders a supplied template as an HTML string, automatically inserting its field values into the template where they are referenced.
 - Performs Pydantic-based field validation/type-checking. 
@@ -64,7 +64,7 @@ print(hello_para)
 # Alternatively we can save to file
 #   (We recommend including the usual HTML boilerplate like a <head>
 #   in your document in this case; this is just an example)
-hello_para.save("./hello_para.html")
+# hello_para.save("./hello_para.html")
 ```
 
 Output:  
@@ -75,14 +75,14 @@ Output:
 
 ---
 
-### `Phractal.ValidatedCachedProperty`
+### `phractal.ValidatedCachedProperty`
 
 A decorator that turns a method on a class into a property which is cached and validated at time of first access, and inserted into the template where its name is referenced. **Note that this can be used to nest Phractions!**
     
 - Validation is based on return type hints (type hints are compulsory).
 - Does not currently support parameterised generics (ex: `list[int]` is not a valid type hint; use `list` instead) -> *This is an open issue!*
 - Value is calculated and cached at first access.
-- `Phractal.ValidatedCachedProperty` is subclassed from the inbuilt `functools.cached_property`.
+- `phractal.ValidatedCachedProperty` is subclassed from the inbuilt `functools.cached_property`.
 - To avoid caching and validation, use the built-in `@property` decorator.
 
 #### Example 1:
