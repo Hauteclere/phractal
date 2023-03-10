@@ -48,7 +48,7 @@ The base unit of construction of a Phractal document - analagous to `React.Compo
 #### Example:
 
 ```python
-from src.phractal import Phraction
+from phractal import Phraction
 
 # A Phraction to render a simple "hello" message
 class HelloPara(Phraction):
@@ -87,7 +87,7 @@ A decorator which turns a method on a class into a property which is cached and 
 #### Example 1:
 
 ```python
-from src.phractal import Phraction, ValidatedCachedProperty
+from phractal import Phraction, ValidatedCachedProperty
 
 # A Phraction to display calculated total prices with tax
 class TaxBox(Phraction):
@@ -122,7 +122,7 @@ Output:
 #### Example 2 (nesting):
 
 ```python
-from src.phractal import Phraction, ValidatedCachedProperty
+from phractal import Phraction, ValidatedCachedProperty
 
 # Phraction to render a simple "hello" message as an H1 heading
 class HelloHeading(Phraction):
@@ -208,7 +208,7 @@ To incorporate output from other packages that generate document assets, simply 
 Here we incorporate a `Plotly` Gauge Plot.
 
 ```python
-from src.phractal import Phraction, ValidatedCachedProperty
+from phractal import Phraction, ValidatedCachedProperty
 from pydantic import Field
 import plotly.graph_objects as go
 import plotly.offline
