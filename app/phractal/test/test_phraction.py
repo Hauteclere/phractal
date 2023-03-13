@@ -97,3 +97,7 @@ class TestNesting(unittest.TestCase):
         test_phrac = SecondPhrac(some_var="hi")
         
         self.assertEqual(str(test_phrac), "<p>hi</p>")
+
+class TestIntentionalFail(unittest.TestCase):
+    def test_fail(self):
+        self.fail()
