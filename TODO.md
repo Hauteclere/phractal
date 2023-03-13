@@ -5,7 +5,7 @@ The following tasks are WIP.
 - [x] Sort out setup.py
 
 ## Testing
-- [ ] Write tests
+- [x] Write tests
 - [ ] Automate tests for new git pushes
 
 ## Deployment
