@@ -9,7 +9,7 @@ The following tasks are WIP.
 - [x] Automate tests for new git pushes
 
 ## Deployment
-- [ ] Squash commits to date
+- [x] Squash commits to date
 - [ ] Check that branch protection works
 - [ ] Follow guide for deployment to PyPi
 
