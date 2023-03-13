@@ -295,4 +295,4 @@ academic_performance.save("./test.html")
 
 Output:
 
-![A series of gauge graphs rendered in an HTML Document](readme_img/example_plotly.png)
+![A series of gauge graphs rendered in an HTML Document](https://github.com/Hauteclere/phractal/blob/main/readme_img/example_plotly.png?raw=true)
