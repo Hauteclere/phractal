@@ -100,4 +100,5 @@ class TestNesting(unittest.TestCase):
 
 class TestIntentionalFail(unittest.TestCase):
     def test_fail(self):
+        # sigh...
         self.fail()
