@@ -1,23 +1,19 @@
-name: deploy to pypi
+name: deploy 
 
 on:
-  pull_request:
+  workflow_run:
+    workflows: [Test]
     branches: [ "main"]
-    types: [closed]
+    types: [completed]
 
 permissions:
   contents: read
 
 jobs:
   build:
-    if: github.event.pull_request.merged == true
+    if: github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python 3.10
-      uses: actions/setup-python@v3
-      with:
-        python-version: "3.10"
     - name: deploy
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
