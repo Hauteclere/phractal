@@ -97,3 +97,80 @@ class TestNesting(unittest.TestCase):
         test_phrac = SecondPhrac(some_var="hi")
         
         self.assertEqual(str(test_phrac), "<p>hi</p>")
+
+class TestBoilerplate(unittest.TestCase):
+    def test_output_is_phraction(self):
+        
+        class MyDoc(Phraction):
+            template="<p>{{ msg }}</p>"
+            msg: str
+
+        my_doc = MyDoc(msg="Hi!")
+        self.assertIsInstance(my_doc.with_boilerplate(), Phraction)
+
+    def test_boilerplate_is_correct(self):
+        output = """
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta http-equiv="X-UA-Compatible" content="ie=edge">
+            <title>Phractal Document</title>
+        </head>
+        <body>
+            <p>Hi!</p>
+        </body>
+        </html>"""
+        
+        class MyDoc(Phraction):
+            template="<p>{{ msg }}</p>"
+            msg: str
+
+        my_doc = MyDoc(msg="Hi!")
+        self.assertEqual("".join(str(my_doc.with_boilerplate()).split()), "".join(output.split()))
+
+    def test_bootstrap_gets_included(self):
+        output = """
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta http-equiv="X-UA-Compatible" content="ie=edge">
+            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+            <title>Phractal Document</title>
+        </head>
+        <body>
+            <p>Hi!</p>
+        </body>
+        </html>"""
+        
+        class MyDoc(Phraction):
+            template="<p>{{ msg }}</p>"
+            msg: str
+
+        my_doc = MyDoc(msg="Hi!")
+        self.assertEqual("".join(str(my_doc.with_boilerplate(bootstrap=True)).split()), "".join(output.split()))
+
+    def test_title_correct(self):
+        output = """
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <meta http-equiv="X-UA-Compatible" content="ie=edge">
+            <title>A Snappy Title</title>
+        </head>
+        <body>
+            <p>Hi!</p>
+        </body>
+        </html>"""
+        
+        class MyDoc(Phraction):
+            template="<p>{{ msg }}</p>"
+            msg: str
+
+        my_doc = MyDoc(msg="Hi!")
+        self.assertEqual("".join(str(my_doc.with_boilerplate(title="A Snappy Title")).split()), "".join(output.split()))
