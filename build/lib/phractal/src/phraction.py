@@ -93,3 +93,44 @@ class Phraction(BaseModel):
             attribs.update({prop: getattr(self, prop) for prop in props})
 
         return attribs
+
+    def with_boilerplate(self, bootstrap: bool=False, title: str="Phractal Document"):
+        """A method to wrap the output of a phraction in standard HTML boilerplate. Use ONLY on the top-level Phraction in a doc.
+
+        args:
+            bootstrap: Boolean. Indicates whether or not to include Bootstrap styling script v4.3.1 in head.
+            title: String. The <title> to assign in the document's head. Default is "Phractal Document".
+        
+        returns:
+            An object of the Phraction class which wraps the calling instance in boilerplate.
+        """
+        class Boilerplater(Phraction):
+            template = """
+            <!DOCTYPE html>
+            <html lang="en">
+            <head>
+                <meta charset="UTF-8">
+                <meta name="viewport" content="width=device-width, initial-scale=1.0">
+                <meta http-equiv="X-UA-Compatible" content="ie=edge">
+                {% if bootstrap %}
+                    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+                {% endif %}
+                <title>{{ title }}</title>
+            </head>
+            <body>
+                {{ inner_phractal }}
+            </body>
+            </html>"""
+            title: str
+            bootstrap: bool
+            
+            @property
+            def inner_phractal(obj):
+                return self
+
+        boilerplater=Boilerplater(
+            title = title,
+            bootstrap = bootstrap
+        )
+        
+        return boilerplater

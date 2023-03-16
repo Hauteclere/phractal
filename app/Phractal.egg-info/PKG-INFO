@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: Phractal
-Version: 0.0.1
+Version: 0.0.2
 Summary: A tool for creating HTML documents programmatically with Python
 Home-page: https://github.com/Hauteclere/phractal
 Author: Hauteclere
@@ -29,12 +29,13 @@ Phractal was originally designed to automatically generate bespoke templated sta
     - [`phractal.Phraction`](#phractalphraction)
       - [Args:](#args)
       - [Methods:](#methods)
-      - [Example:](#example)
+      - [Example - phraction useage:](#example---phraction-useage)
+      - [Example - `with_boilerplate` useage:](#example---with_boilerplate-useage)
     - [`phractal.ValidatedCachedProperty`](#phractalvalidatedcachedproperty)
       - [Example 1:](#example-1)
       - [Example 2 (nesting):](#example-2-nesting)
   - [Incorporating Other Packages](#incorporating-other-packages)
-    - [Example:](#example-1)
+    - [Example - Plotly:](#example---plotly)
 
 
 ---
@@ -59,9 +60,10 @@ The base unit of construction of a Phractal document - analagous to `React.Compo
 - `template`: A Jinja2-formatted string defining the HTML structure of the Phraction.
 
 #### Methods:
-- `save(path: str)`: Save the rendered document to the specified filepath.
+- [`save(path: str)`](#example---phraction-useage): Save the rendered document to the specified filepath.
+- [`with_boilerplate(bootstrap: bool=False, title: str="Phractal Document")`](): Returns a Phraction which wraps the calling Phraction in HTML boilerplate.
 
-#### Example:
+#### Example - phraction useage:
 
 ```python
 from phractal import Phraction
@@ -77,10 +79,9 @@ hello_para = HelloPara(name="Murderbot")
 # Practions can be rendered to HTML strings using their __str__ method.
 print(hello_para)
 
-# Alternatively we can save to file
-#   (We recommend including the usual HTML boilerplate like a <head>
-#   in your document in this case; this is just an example)
-# hello_para.save("./hello_para.html")
+# Alternatively we can save to file.
+# Adding HTML boilerplate here is a good idea.
+# hello_para.with_boilerplate().save("./hello_para.html")
 ```
 
 Output:  
@@ -89,6 +90,42 @@ Output:
 <p>Hello Murderbot</p>
 ```
 
+#### Example - `with_boilerplate` useage:
+```python
+
+from phractal import Phraction
+
+class MyDoc(Phraction):
+    template="<p>{{ msg }}</p>"
+    msg: str
+
+my_doc = MyDoc(msg="Hi!")
+
+# Note that the returned object is an instance subclassed from the "Phraction" class.
+print(type(my_doc.with_boilerplate()))
+print(my_doc.with_boilerplate())
+
+# We can save with boilerplate like so.
+my_doc.with_boilerplate().save()
+```
+Output:
+```
+<class 'phractal.src.phraction.Phraction'>
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Phractal Document</title>
+  </head>
+  <body>
+	<p>Hi!</p>
+  </body>
+</html>
+
+```
 ---
 
 ### `phractal.ValidatedCachedProperty`
@@ -220,7 +257,7 @@ Output:
 
 To incorporate output from other packages that generate document assets, simply incorporate these outputs into your `Phraction`s using `@Property` or `@ValidatedCachedProperty`. 
 
-### Example:
+### Example - Plotly:
 
 Here we incorporate a `Plotly` Gauge Plot.
 
@@ -264,22 +301,13 @@ class GaugePlot(Phraction):
 # A parent Phraction to combine three GaugePlot Phractions under a heading
 class AcademicPerformance(Phraction):
     # Plotly wants us to include plotly-latest.min.js to render the plot
-    #   We can also incorporate Bootstrap styling
-    #   The best place for both of these is here in the top-level Phraction.
+    #   The best place for both of this is here in the top-level Phraction.
     template = """
-    <!DOCTYPE html>
-        <html>
-        <head>
-            <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        </head>
-        <body>
-            <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> 
-            <h1>Academic Performance</h1>
-            {% for plot in plots %}
-                {{ plot }}
-            {% endfor %}
-        </body>
-    </html>    
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script> 
+    <h1>Academic Performance</h1>
+    {% for plot in plots %}
+        {{ plot }}
+    {% endfor %}  
     """
     
     grades: list[tuple]
@@ -306,7 +334,7 @@ academic_performance = AcademicPerformance(grades=grades)
 
 # The output here is a bit longer
 # Let's save it to file instead of printing to console
-academic_performance.save("./test.html")
+academic_performance.with_boilerplate(bootstrap=True).save("./test.html")
 ```
 
 Output:
