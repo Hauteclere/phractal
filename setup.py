@@ -5,7 +5,7 @@ with open("./README.md", "r") as f:
 
 setup(
     name="Phractal",
-    version="0.0.3a",
+    version="1.0.0",
     description="A tool for creating HTML documents programmatically with Python",
     package_dir={"": "app"},
     packages=find_packages(where="app"),
