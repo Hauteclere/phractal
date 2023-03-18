@@ -1,19 +1,7 @@
 from functools import cached_property
-import inspect
+from ._utils import _get_handy_context
 
 _NOT_FOUND = object()
-
-def _get_handy_context(func: callable) -> tuple[str, int, str]:
-    """Grabs the filename, line number, and code-block in which a function is defined.
-    
-    Args:
-        func - the function being interrogated.
-    """
-    filename = inspect.getfile(func)
-    code, lineno = inspect.getsourcelines(func)
-    context = "".join(code)
-
-    return filename, lineno, context
 
 class ValidatedCachedProperty(cached_property):
     """A decorator which turns a function into a property on a class which is cached and validated. 
@@ -23,6 +11,18 @@ class ValidatedCachedProperty(cached_property):
     Value is calculated and cached at first access.
     Subclassed from the inbuilt functools.cached_property.      
     """
+    def _validate_return_type(self, val):
+        """Validates the return type of the property based on type hints.
+        """
+
+        if not 'return' in self.func.__annotations__:
+            filename, lineno, context = _get_handy_context(self.func)
+            raise ValueError(f"No type hint supplied for ValidatedCachedProperty {self.attrname}. Context: \n {filename} ({lineno}): \n {context}")
+        if not isinstance(val, self.func.__annotations__['return']):
+            filename, lineno, context = _get_handy_context(self.func)
+            raise ValueError(f"ValidatedCachedProperty {self.attrname} returned a value that did not match its type hint. Hinted type: {self.func.__annotations__['return']}. Returned type: {type(val)}. Context: \n {filename} ({lineno}): \n {context}")
+        
+    
     def __get__(self, instance, owner=None):
         if instance is None:
             return self
@@ -52,12 +52,8 @@ class ValidatedCachedProperty(cached_property):
                             f"does not support item assignment for caching {self.attrname!r} property."
                         )
                         raise TypeError(msg) from None
-                    
-        if not 'return' in self.func.__annotations__:
-            filename, lineno, context = _get_handy_context(self.func)
-            raise ValueError(f"No type hint supplied for ValidatedCachedProperty {self.attrname}. Context: \n {filename} ({lineno}): \n {context}")
-        if not isinstance(val, self.func.__annotations__['return']):
-            filename, lineno, context = _get_handy_context(self.func)
-            raise ValueError(f"ValidatedCachedProperty {self.attrname} returned a value that did not match its type hint. Hinted type: {self.func.__annotations__['return']}. Returned type: {type(val)}.Context: \n {filename} ({lineno}): \n {context}")
+        
+        self._validate_return_type(val)            
+        
         return val
     
