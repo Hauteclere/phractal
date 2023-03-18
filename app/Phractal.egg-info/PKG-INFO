@@ -1,6 +1,6 @@
 Metadata-Version: 2.1
 Name: Phractal
-Version: 0.0.2
+Version: 0.0.3
 Summary: A tool for creating HTML documents programmatically with Python
 Home-page: https://github.com/Hauteclere/phractal
 Author: Hauteclere
@@ -133,10 +133,12 @@ Output:
 A decorator that turns a method on a class into a property which is cached and validated at time of first access, and inserted into the template where its name is referenced. **Note that this can be used to nest Phractions!**
     
 - Validation is based on return type hints (type hints are compulsory).
-- Does not currently support parameterised generics (ex: `list[int]` is not a valid type hint; use `list` instead) -> *This is an open issue!*
+- Supports Pydantic style parameterized generics. (Ex: `list[int]` matches [1, 2, 3] but not ["a", "b","c"])
+- Arbitrary type hinting is allowed. Ex: `def foo(self) -> list[MyCustomClass]:`
 - Value is calculated and cached at first access.
 - `phractal.ValidatedCachedProperty` is subclassed from the inbuilt `functools.cached_property`.
 - To avoid caching and validation, use the built-in `@property` decorator.
+- To skip validation but still cache the result, we recommend using the `typing.Any` hint. Ex: `def foo(self) -> Any:`
 
 #### Example 1:
 
