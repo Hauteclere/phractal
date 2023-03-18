@@ -76,7 +76,6 @@ Output:
 
 #### Example - `with_boilerplate` useage:
 ```python
-
 from phractal import Phraction
 
 class MyDoc(Phraction):
@@ -86,15 +85,15 @@ class MyDoc(Phraction):
 my_doc = MyDoc(msg="Hi!")
 
 # Note that the returned object is an instance subclassed from the "Phraction" class.
-print(type(my_doc.with_boilerplate()))
+print(isinstance(my_doc.with_boilerplate(), Phraction))
 print(my_doc.with_boilerplate())
 
 # We can save with boilerplate like so.
-my_doc.with_boilerplate().save()
+my_doc.with_boilerplate().save("./my_doc.html")
 ```
 Output:
 ```
-<class 'phractal.src.phraction.Phraction'>
+True
 
 <!DOCTYPE html>
 <html lang="en">
