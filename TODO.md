@@ -9,7 +9,6 @@ The following tasks are WIP.
 - [x] Automate tests for new git pushes
 
 ## Development
-- [ ] Need to find a way to prevent a user from using a banned variable name in a template (i.e. `template`!)
 - [ ] Need to get ValidatedCachedProperty working with parameterized generics in typehints -> https://lyz-code.github.io/blue-book/coding/python/pydantic_types/#generic-classes-as-types
 - [ ] A method that wraps the output in html boilerplate
   - [x] Update documentation to say that the boilerplater is a **subclass** of `Phraction`
