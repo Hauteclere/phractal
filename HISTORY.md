@@ -1,5 +1,8 @@
 # Version History
 
+## 0.0.3a (2023/03/19)
+- Corrections to documentation
+
 ## 0.0.3 (2023/03/19)
 - Parameterized return type hints are now supported for `ValidatedCachedProperty`
 - Refactored `ValidatedCachedProperty` code to be more modular
