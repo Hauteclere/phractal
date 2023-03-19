@@ -9,7 +9,7 @@ class ValidatedCachedProperty(cached_property):
     """A decorator which turns a function into a property on a class which is cached and validated. 
     
     Validation is based on return type hints (type hints are compulsory).
-    Does not currently support parameterised generics (ex: `list[int]` is not a valid type hint - use `list` instead) -> This is an open issue!
+    Use Pydantic-style type-hinting. Arbitrary types are permitted.
     Value is calculated and cached at first access.
     Subclassed from the inbuilt functools.cached_property.      
     """
