@@ -22,7 +22,7 @@ class TestVCP(unittest.TestCase):
             def test_prop(self) -> int:
                 return "hi"
         with self.assertRaises(
-            ValueError,
+            TypeError,
             msg="An incorrectly typed type hint did not raise a ValueError."
         ):
             test_thing = TestClass()
@@ -34,7 +34,7 @@ class TestVCP(unittest.TestCase):
             def test_prop(self):
                 return "hi"
         with self.assertRaises(
-            ValueError,
+            TypeError,
             msg="A missing type hint did not raise a ValueError."
         ):
             test_thing = TestClass()
@@ -82,7 +82,7 @@ class TestVCP(unittest.TestCase):
             def test_prop(self) -> list[int]:
                 return [1, "b", 3]
             
-        with self.assertRaises(ValueError) as e:
+        with self.assertRaises(TypeError) as e:
             test_thing = TestClass()
             test_thing.test_prop
 
@@ -92,7 +92,7 @@ class TestVCP(unittest.TestCase):
             def test_prop(self) -> int|bool:
                 return "hi"
             
-        with self.assertRaises(ValueError) as e:
+        with self.assertRaises(TypeError) as e:
             test_thing = TestClass()
             test_thing.test_prop
 
@@ -123,6 +123,6 @@ class TestVCP(unittest.TestCase):
             def test_prop(self) -> list[TestClass1]:
                 return [TestClass1(), TestClass3()]
             
-        with self.assertRaises(ValueError) as e:
+        with self.assertRaises(TypeError) as e:
             test_thing = TestClass2()
             test_thing.test_prop
