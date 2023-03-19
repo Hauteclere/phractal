@@ -1,5 +1,11 @@
 # Version History
 
+## 1.0.1 (2023/03/19)
+- Minor corrections to docstrings
+
+## 1.0.0 (2023/03/19)
+- First major release
+
 ## 0.0.3a (2023/03/19)
 - Corrections to documentation
 
