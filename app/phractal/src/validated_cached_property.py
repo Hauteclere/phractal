@@ -20,7 +20,7 @@ class ValidatedCachedProperty(cached_property):
 
         if not 'return' in self.func.__annotations__:
             filename, lineno, context = _get_handy_context(self.func)
-            raise ValueError(f"No type hint supplied for ValidatedCachedProperty {self.attrname}. Context: \n {filename} ({lineno}): \n {context}")
+            raise TypeError(f"No type hint supplied for ValidatedCachedProperty {self.attrname}. Context: \n {filename} ({lineno}): \n {context}")
         
         try:
             class ValidationProxy(BaseModel):
@@ -32,7 +32,7 @@ class ValidatedCachedProperty(cached_property):
 
         except ValidationError as e:
             filename, lineno, context = _get_handy_context(self.func)
-            raise ValueError(f"ValidatedCachedProperty {self.attrname} returned a value that did not match its type hint. Hinted type: {self.func.__annotations__['return']}. Returned type: {type(val)}. Context: \n {filename} ({lineno}): \n {context}") 
+            raise TypeError(f"ValidatedCachedProperty {self.attrname} returned a value that did not match its type hint. Hinted type: {self.func.__annotations__['return']}. Returned type: {type(val)}. Context: \n {filename} ({lineno}): \n {context}") 
                 
     def __get__(self, instance, owner=None):
         if instance is None:
