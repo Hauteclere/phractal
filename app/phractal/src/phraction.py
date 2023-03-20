@@ -119,6 +119,7 @@ class Phraction(BaseModel):
             </head>
             <body>
                 {{ inner_phractal }}
+                <div style="display:none;">This content was prepared using the <a href="https://pypi.org/project/Phractal/">Phractal</a> library for Python.</div>
             </body>
             </html>"""
             title: str
