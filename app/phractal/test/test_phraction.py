@@ -120,6 +120,7 @@ class TestBoilerplate(unittest.TestCase):
         </head>
         <body>
             <p>Hi!</p>
+            <div style="display:none;">This content was prepared using the <a href="https://pypi.org/project/Phractal/">Phractal</a> library for Python.</div>
         </body>
         </html>"""
         
@@ -143,6 +144,7 @@ class TestBoilerplate(unittest.TestCase):
         </head>
         <body>
             <p>Hi!</p>
+            <div style="display:none;">This content was prepared using the <a href="https://pypi.org/project/Phractal/">Phractal</a> library for Python.</div>
         </body>
         </html>"""
         
@@ -165,6 +167,7 @@ class TestBoilerplate(unittest.TestCase):
         </head>
         <body>
             <p>Hi!</p>
+            <div style="display:none;">This content was prepared using the <a href="https://pypi.org/project/Phractal/">Phractal</a> library for Python.</div>
         </body>
         </html>"""
         
